@@ -20,7 +20,7 @@ const directLinks = [
 ];
 let lastAdTime = Date.now(); // Track last ad timestamp
 let channelChangeCount = 0;   // Count channel changes
-const tenMinutes = 10 * 60 * 1000; // 10 minutes in ms
+const adCooldownTime = 20 * 60 * 1000; // 20 minutes in ms
 
 // DOM Elements
 const appLoader = document.getElementById("appLoader");
@@ -409,8 +409,8 @@ function clickChannel(filteredIdx) {
   channelChangeCount++;
   const now = Date.now();
   
-  // Rule: Show ad every 3 channel changes OR every 10 minutes
-  if (channelChangeCount >= 3 || (now - lastAdTime >= tenMinutes)) {
+  // Rule: Show ad every 8 channel changes OR every 20 minutes
+  if (channelChangeCount >= 8 || (now - lastAdTime >= adCooldownTime)) {
     channelChangeCount = 0; // Reset counter
     lastAdTime = now;       // Reset timer
     
