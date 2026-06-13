@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALONE TV - Live TV Streaming Portal</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Plyr Player CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-logo-container">
+          <i class="fa-solid fa-play"></i>
+        </div>
+        <span class="brand-name">ALONE <span class="accent-text">TV</span></span>
+      </div>
+      
+      <div class="search-container">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Search your favorite TV channel...">
+        <button id="clearSearchBtn" class="clear-search-btn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="header-actions">
+        <a href="https://github.com" target="_blank" class="github-btn">
+          <i class="fa-brands fa-github"></i> <span>GitHub</span>
+        </a>
+      </div>
+    </header>
+
+    <div class="main-layout">
+      <!-- Sidebar / Category List -->
+      <aside class="sidebar">
+        <div class="sidebar-title">Categories</div>
+        <div class="category-list" id="categoryList">
+          <!-- Dynamically populated categories -->
+        </div>
+      </aside>
+
+      <!-- Main Content (Player & Channel Grid) -->
+      <main class="content-area">
+        <!-- Player Container -->
+        <section class="player-section">
+          <div class="player-wrapper">
+            <video id="player" playsinline controls></video>
+            <!-- Custom buffering & error states -->
+            <div id="playerLoader" class="player-overlay hidden">
+              <div class="spinner"></div>
+              <span>Connecting stream...</span>
+            </div>
+            <div id="playerError" class="player-overlay error-overlay hidden">
+              <i class="fa-solid fa-triangle-exclamation error-icon"></i>
+              <span class="error-msg">Stream is currently offline. Trying another link...</span>
+            </div>
+          </div>
+          <div class="channel-info-bar">
+            <div class="current-channel-logo-container">
+              <img id="currentChannelLogo" src="" alt="" class="hidden">
+              <div id="currentChannelFallback" class="channel-fallback">TV</div>
+            </div>
+            <div class="current-channel-details">
+              <div class="channel-name-row">
+                <h1 id="currentChannelName">Select a channel to play</h1>
+                <button id="favoriteBtn" class="favorite-toggle-btn" title="Add to Favorites">
+                  <i class="fa-regular fa-star"></i>
+                </button>
+              </div>
+              <p id="currentChannelCategory" class="channel-category-badge">General</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Grid Section -->
+        <section class="grid-section">
+          <div class="section-header">
+            <h2 id="gridTitle">All Channels</h2>
+            <span id="channelCount" class="channel-count-badge">0 channels</span>
+          </div>
+          
+          <div class="channel-grid" id="channelGrid">
+            <!-- Dynamically populated channels -->
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- App Loader Overlay (initial load) -->
+    <div id="appLoader" class="app-loader-overlay">
+      <div class="loader-content">
+        <div class="brand logo-loading">
+          <i class="fa-solid fa-play"></i>
+        </div>
+        <div class="loading-bar-container">
+          <div class="loading-bar"></div>
+        </div>
+        <span class="loading-status">Loading channels database...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hls.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.12/dist/hls.min.js"></script>
+  <!-- Plyr Player JS -->
+  <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.min.js"></script>
+  <!-- App JS -->
+  <script src="app.js"></script>
+</body>
+</html>

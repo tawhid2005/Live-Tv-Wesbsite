@@ -1,0 +1,6 @@
+# Local IDE or System Logs
+*.log
+.gemini/
+brain/
+*.tmp
+temp/

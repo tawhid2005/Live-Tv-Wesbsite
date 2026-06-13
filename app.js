@@ -1,0 +1,578 @@
+/* ==========================================
+   APP STATE & INITIALIZATION
+   ========================================== */
+let channels = [];
+let filteredChannels = [];
+let favorites = [];
+let currentCategory = "All";
+let currentChannelIndex = -1;
+let hlsInstance = null;
+let plyrPlayer = null;
+
+// DOM Elements
+const appLoader = document.getElementById("appLoader");
+const playerLoader = document.getElementById("playerLoader");
+const playerError = document.getElementById("playerError");
+const videoElement = document.getElementById("player");
+const searchInput = document.getElementById("searchInput");
+const clearSearchBtn = document.getElementById("clearSearchBtn");
+const categoryList = document.getElementById("categoryList");
+const channelGrid = document.getElementById("channelGrid");
+const channelCountBadge = document.getElementById("channelCount");
+const gridTitle = document.getElementById("gridTitle");
+
+const currentChannelName = document.getElementById("currentChannelName");
+const currentChannelCategory = document.getElementById("currentChannelCategory");
+const currentChannelLogo = document.getElementById("currentChannelLogo");
+const currentChannelFallback = document.getElementById("currentChannelFallback");
+const favoriteBtn = document.getElementById("favoriteBtn");
+
+// Category Icons Mapping
+const categoryIcons = {
+  "all": "fa-solid fa-globe",
+  "favorites": "fa-solid fa-star",
+  "fifa26": "fa-solid fa-circle-play",
+  "sports": "fa-solid fa-trophy",
+  "bangla": "fa-solid fa-language",
+  "news": "fa-solid fa-newspaper",
+  "kids": "fa-solid fa-child-reaching",
+  "indian bangla": "fa-solid fa-tv",
+  "entertainment": "fa-solid fa-masks-theater",
+  "movies": "fa-solid fa-film",
+  "english": "fa-solid fa-globe",
+  "religious": "fa-solid fa-hands-praying",
+  "hindi": "fa-solid fa-tv",
+  "infotainment": "fa-solid fa-circle-info",
+  "musics": "fa-solid fa-music",
+  "drama": "fa-solid fa-clapperboard",
+  "weather": "fa-solid fa-cloud-sun",
+  "other": "fa-solid fa-tv"
+};
+
+// Colors for fallback initials icons
+const fallbackColors = [
+  "#6366f1", "#06b6d4", "#ec4899", "#f59e0b", "#10b981", 
+  "#8b5cf6", "#3b82f6", "#ef4444", "#14b8a6", "#a855f7"
+];
+
+/* ==========================================
+   INITIALIZE PLYR PLAYER
+   ========================================== */
+function initPlayer() {
+  plyrPlayer = new Plyr(videoElement, {
+    controls: [
+      'play-large', 'play', 'mute', 'volume', 
+      'settings', 'pip', 'fullscreen'
+    ],
+    settings: ['quality', 'speed', 'loop'],
+    ratio: '16:9'
+  });
+
+  // Track errors via video tag directly as backup
+  videoElement.addEventListener('error', () => {
+    // If native loading fails
+    if (!hlsInstance && videoElement.error) {
+      showPlayerError();
+    }
+  });
+
+  // Track playing state to hide loaders
+  videoElement.addEventListener('playing', () => {
+    playerLoader.classList.add("hidden");
+    playerError.classList.add("hidden");
+  });
+
+  videoElement.addEventListener('waiting', () => {
+    playerLoader.classList.remove("hidden");
+  });
+}
+
+/* ==========================================
+   LOAD DATA & START APP
+   ========================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. Initialize player controls
+  initPlayer();
+
+  // 2. Load favorites from localStorage
+  loadFavorites();
+
+  // 3. Fetch channel list
+  fetchChannels();
+
+  // 4. Bind event listeners
+  searchInput.addEventListener("input", handleSearchInput);
+  clearSearchBtn.addEventListener("click", clearSearch);
+  favoriteBtn.addEventListener("click", toggleFavoriteCurrent);
+});
+
+// Load favorites
+function loadFavorites() {
+  try {
+    const saved = localStorage.getItem("alones_tv_favorites");
+    if (saved) {
+      favorites = JSON.parse(saved);
+    }
+  } catch (e) {
+    console.error("Could not load favorites:", e);
+    favorites = [];
+  }
+}
+
+// Fetch channels JSON
+function fetchChannels() {
+  fetch("channels.json")
+    .then(res => {
+      if (!res.ok) throw new Error("Network response was not ok");
+      return res.json();
+    })
+    .then(data => {
+      channels = data;
+      filteredChannels = [...channels];
+      
+      // Hide global page loader
+      appLoader.classList.add("hidden");
+      
+      // Render components
+      renderCategories();
+      renderChannels();
+      
+      // Auto-play channel
+      handleAutoPlay();
+    })
+    .catch(err => {
+      console.error("Failed to load channel database:", err);
+      const loadingStatus = document.querySelector(".loading-status");
+      if (loadingStatus) {
+        loadingStatus.innerHTML = "<span style='color: #ef4444;'><i class='fa-solid fa-circle-exclamation'></i> Failed to load channel database. Please refresh!</span>";
+      }
+    });
+}
+
+/* ==========================================
+   CATEGORY & CHANNEL RENDERERS
+   ========================================== */
+function renderCategories() {
+  categoryList.innerHTML = "";
+  
+  // Calculate counts for each category
+  const categoryCounts = {};
+  channels.forEach(ch => {
+    const catName = ch.category || "Other";
+    categoryCounts[catName] = (categoryCounts[catName] || 0) + 1;
+  });
+
+  // Unique categories list
+  const categoriesList = Object.keys(categoryCounts);
+  
+  // Custom sorting order (FIFA26 and Sports on top, then Bangla, etc.)
+  const customOrder = [
+    "fifa26",
+    "sports",
+    "bangla",
+    "news",
+    "kids",
+    "entertainment",
+    "movies",
+    "english",
+    "religious",
+    "hindi",
+    "infotainment",
+    "musics",
+    "drama",
+    "weather",
+    "other"
+  ];
+
+  categoriesList.sort((a, b) => {
+    let indexA = customOrder.indexOf(a.toLowerCase().trim());
+    let indexB = customOrder.indexOf(b.toLowerCase().trim());
+    if (indexA === -1) indexA = 99;
+    if (indexB === -1) indexB = 99;
+    return indexA - indexB;
+  });
+
+  // Helper function to build category buttons
+  const buildBtn = (name, icon, count, isActive) => {
+    const countBadge = count !== null ? `<span class="category-count">${count}</span>` : "";
+    const activeClass = isActive ? "active" : "";
+    const cleanName = name.toLowerCase().trim() === "fifa26" ? "FIFA" : name;
+    
+    return `
+      <button class="category-pill ${activeClass}" data-category="${name}" onclick="selectCategory('${name}', this)">
+        <span><i class="${icon}"></i>${cleanName}</span>
+        ${countBadge}
+      </button>
+    `;
+  };
+
+  // Add "All" Category
+  categoryList.innerHTML += buildBtn("All", categoryIcons["all"], channels.length, currentCategory === "All");
+  
+  // Add "Favorites" Category
+  categoryList.innerHTML += buildBtn("Favorites", categoryIcons["favorites"], favorites.length, currentCategory === "Favorites");
+  
+  // Add other categories
+  categoriesList.forEach(cat => {
+    const lowerCat = cat.toLowerCase().trim();
+    const icon = categoryIcons[lowerCat] || categoryIcons["other"];
+    const count = categoryCounts[cat];
+    categoryList.innerHTML += buildBtn(cat, icon, count, currentCategory === cat);
+  });
+}
+
+function renderChannels() {
+  channelGrid.innerHTML = "";
+  
+  if (filteredChannels.length === 0) {
+    channelGrid.innerHTML = `
+      <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">
+        <i class="fa-regular fa-folder-open" style="font-size: 44px; margin-bottom: 12px; display: block;"></i>
+        No channels found matching the search or category.
+      </div>
+    `;
+    channelCountBadge.innerText = "0 channels";
+    return;
+  }
+  
+  channelCountBadge.innerText = `${filteredChannels.length} channel${filteredChannels.length > 1 ? 's' : ''}`;
+  
+  filteredChannels.forEach((ch, idx) => {
+    const isPlaying = currentChannelIndex !== -1 && filteredChannels[currentChannelIndex].id === ch.id;
+    const activeClass = isPlaying ? "active" : "";
+    const liveBadge = isPlaying ? `<span class="live-badge">LIVE</span>` : "";
+    
+    // FALLBACK LOGO GENERATION
+    let logoHTML = "";
+    if (ch.logo && ch.logo !== "" && !ch.logo.endsWith(".svg")) {
+      logoHTML = `<img src="${ch.logo}" alt="${ch.name}" onerror="handleLogoError(this, '${ch.name}')">`;
+    } else {
+      const initials = getInitials(ch.name);
+      const bg = getFallbackColor(ch.name);
+      logoHTML = `<div class="card-fallback" style="background: ${bg}">${initials}</div>`;
+    }
+    
+    channelGrid.innerHTML += `
+      <div class="channel-card ${activeClass}" data-id="${ch.id}" onclick="clickChannel(${idx})">
+        ${liveBadge}
+        <div class="card-logo-container">
+          ${logoHTML}
+        </div>
+        <div class="card-name">${ch.name}</div>
+      </div>
+    `;
+  });
+}
+
+function handleLogoError(img, name) {
+  const parent = img.parentElement;
+  if (!parent) return;
+  const initials = getInitials(name);
+  const bg = getFallbackColor(name);
+  parent.innerHTML = `<div class="card-fallback" style="background: ${bg}">${initials}</div>`;
+}
+
+function getInitials(name) {
+  if (!name) return "TV";
+  const clean = name.replace(/[^A-Za-z0-9 ]/g, '').trim();
+  const words = clean.split(" ");
+  if (words.length >= 2) {
+    return (words[0][0] + words[1][0]).toUpperCase();
+  }
+  return name.slice(0, 2).toUpperCase();
+}
+
+function getFallbackColor(name) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % fallbackColors.length;
+  return fallbackColors[index];
+}
+
+/* ==========================================
+   CHANNEL PLAYBACK LOGIC
+   ========================================== */
+function clickChannel(filteredIdx) {
+  const actualChannel = filteredChannels[filteredIdx];
+  // Find index in main channels list
+  const mainIdx = channels.findIndex(ch => ch.id === actualChannel.id);
+  if (mainIdx === -1) return;
+  
+  playChannel(mainIdx);
+}
+
+function playChannel(mainIndex) {
+  if (mainIndex < 0 || mainIndex >= channels.length) return;
+  
+  const ch = channels[mainIndex];
+  
+  // Highlight active card in grid
+  document.querySelectorAll(".channel-card").forEach(card => {
+    card.classList.remove("active");
+    const badge = card.querySelector(".live-badge");
+    if (badge) badge.remove();
+    
+    if (card.dataset.id === ch.id) {
+      card.classList.add("active");
+      card.insertAdjacentHTML('afterbegin', `<span class="live-badge">LIVE</span>`);
+    }
+  });
+  
+  // Determine index in filteredChannels for tracking state
+  currentChannelIndex = filteredChannels.findIndex(fch => fch.id === ch.id);
+  
+  // Update details panel
+  currentChannelName.innerText = ch.name;
+  currentChannelCategory.innerText = ch.category;
+  
+  if (ch.logo && ch.logo !== "" && !ch.logo.endsWith(".svg")) {
+    currentChannelLogo.src = ch.logo;
+    currentChannelLogo.classList.remove("hidden");
+    currentChannelFallback.classList.add("hidden");
+  } else {
+    currentChannelLogo.classList.add("hidden");
+    currentChannelFallback.classList.remove("hidden");
+    currentChannelFallback.innerText = getInitials(ch.name);
+    currentChannelFallback.style.background = getFallbackColor(ch.name);
+  }
+  
+  // Update favorite star icon
+  updateFavoriteButtonState(ch.id);
+  
+  // Hide previous errors
+  playerError.classList.add("hidden");
+  playerLoader.classList.remove("hidden");
+
+  // Load HLS Stream
+  loadStream(ch.url);
+
+  // Set URL hash for deep linking
+  window.location.hash = ch.id;
+
+  // Scroll to player in mobile views
+  if (window.innerWidth <= 768) {
+    videoElement.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+function loadStream(url) {
+  // Clean up existing Hls instance
+  if (hlsInstance) {
+    hlsInstance.destroy();
+    hlsInstance = null;
+  }
+
+  if (Hls.isSupported()) {
+    hlsInstance = new Hls({
+      maxMaxBufferLength: 10,
+      enableWorker: true,
+      lowLatencyMode: true
+    });
+    
+    hlsInstance.loadSource(url);
+    hlsInstance.attachMedia(videoElement);
+    
+    hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
+      videoElement.play().catch(e => console.log("Play interrupted or blocked:", e));
+    });
+
+    hlsInstance.on(Hls.Events.ERROR, (event, data) => {
+      if (data.fatal) {
+        switch (data.type) {
+          case Hls.ErrorTypes.NETWORK_ERROR:
+            console.error("HLS Network error:", data);
+            // Try recovery
+            hlsInstance.startLoad();
+            break;
+          case Hls.ErrorTypes.MEDIA_ERROR:
+            console.error("HLS Media error:", data);
+            hlsInstance.recoverMediaError();
+            break;
+          default:
+            console.error("HLS Fatal error:", data);
+            showPlayerError();
+            break;
+        }
+      }
+    });
+  } 
+  // Native HLS support (Safari, iOS Chrome/Firefox, Apple devices)
+  else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+    videoElement.src = url;
+    videoElement.addEventListener('loadedmetadata', () => {
+      videoElement.play().catch(e => console.log("Play interrupted or blocked:", e));
+    });
+  } 
+  // Non-HLS fallback
+  else {
+    console.error("HLS not supported on this browser.");
+    showPlayerError();
+  }
+}
+
+function showPlayerError() {
+  playerLoader.classList.add("hidden");
+  playerError.classList.remove("hidden");
+}
+
+/* ==========================================
+   SEARCH & CATEGORY FILTERS
+   ========================================== */
+function selectCategory(categoryName, element) {
+  currentCategory = categoryName;
+  
+  // Highlight active category
+  document.querySelectorAll(".category-pill").forEach(pill => {
+    pill.classList.remove("active");
+  });
+  if (element) {
+    element.classList.add("active");
+  } else {
+    // If called programmatically, find the right button
+    const pill = document.querySelector(`.category-pill[data-category="${categoryName}"]`);
+    if (pill) pill.classList.add("active");
+  }
+  
+  // Update Grid Title
+  const cleanTitle = categoryName.toLowerCase().trim() === "fifa26" ? "FIFA Streams" : `${categoryName} Channels`;
+  gridTitle.innerText = cleanTitle;
+  
+  // Filter & Render
+  filterAndSearch();
+  
+  // Auto play first channel in the new category
+  if (filteredChannels.length > 0) {
+    clickChannel(0);
+  }
+}
+
+function handleSearchInput() {
+  const value = searchInput.value.trim();
+  if (value.length > 0) {
+    clearSearchBtn.style.display = "block";
+  } else {
+    clearSearchBtn.style.display = "none";
+  }
+  
+  filterAndSearch();
+}
+
+function clearSearch() {
+  searchInput.value = "";
+  clearSearchBtn.style.display = "none";
+  filterAndSearch();
+  searchInput.focus();
+}
+
+function filterAndSearch() {
+  const query = searchInput.value.toLowerCase().trim();
+  
+  filteredChannels = channels.filter(ch => {
+    // 1. Category Filter
+    let matchesCategory = false;
+    if (currentCategory === "All") {
+      matchesCategory = true;
+    } else if (currentCategory === "Favorites") {
+      matchesCategory = favorites.includes(ch.id);
+    } else {
+      matchesCategory = ch.category === currentCategory;
+    }
+    
+    // 2. Search Query Filter
+    let matchesQuery = true;
+    if (query !== "") {
+      matchesQuery = ch.name.toLowerCase().includes(query) || 
+                     (ch.category && ch.category.toLowerCase().includes(query));
+    }
+    
+    return matchesCategory && matchesQuery;
+  });
+  
+  renderChannels();
+}
+
+/* ==========================================
+   FAVORITES MANAGEMENT
+   ========================================== */
+function toggleFavoriteCurrent() {
+  if (currentChannelIndex === -1 || filteredChannels.length === 0) return;
+  
+  const ch = filteredChannels[currentChannelIndex];
+  const favIndex = favorites.indexOf(ch.id);
+  
+  if (favIndex === -1) {
+    // Add to favorites
+    favorites.push(ch.id);
+  } else {
+    // Remove from favorites
+    favorites.splice(favIndex, 1);
+  }
+  
+  // Save to local storage
+  localStorage.setItem("alones_tv_favorites", JSON.stringify(favorites));
+  
+  // Refresh UI
+  updateFavoriteButtonState(ch.id);
+  renderCategories();
+  
+  // If we are currently in Favorites category, refresh the grid
+  if (currentCategory === "Favorites") {
+    filterAndSearch();
+  }
+}
+
+function updateFavoriteButtonState(channelId) {
+  const isFav = favorites.includes(channelId);
+  const icon = favoriteBtn.querySelector("i");
+  
+  if (isFav) {
+    favoriteBtn.classList.add("is-favorite");
+    icon.className = "fa-solid fa-star";
+    favoriteBtn.title = "Remove from Favorites";
+  } else {
+    favoriteBtn.classList.remove("is-favorite");
+    icon.className = "fa-regular fa-star";
+    favoriteBtn.title = "Add to Favorites";
+  }
+}
+
+/* ==========================================
+   AUTO PLAY & ROUTING
+   ========================================== */
+function handleAutoPlay() {
+  let playIndex = 0;
+  
+  // Check hash link
+  const hash = window.location.hash;
+  if (hash && hash.startsWith("#ch_")) {
+    const chId = hash.substring(1);
+    const index = channels.findIndex(ch => ch.id === chId);
+    if (index !== -1) {
+      playIndex = index;
+      // Also update category selection to match the channel's category
+      const targetChan = channels[playIndex];
+      currentCategory = targetChan.category || "All";
+      gridTitle.innerText = currentCategory.toLowerCase().trim() === "fifa26" ? "FIFA Streams" : `${currentCategory} Channels`;
+      
+      renderCategories();
+      filterAndSearch();
+    }
+  } else {
+    // If no hash, auto-select FIFA tab if channels are available in it
+    const hasFifa = channels.some(ch => ch.category === "FIFA26");
+    if (hasFifa) {
+      currentCategory = "FIFA26";
+      gridTitle.innerText = "FIFA Streams";
+      renderCategories();
+      filterAndSearch();
+    }
+  }
+  
+  // Play the channel
+  if (filteredChannels.length > 0) {
+    // Play index 0 in the filtered channels
+    clickChannel(0);
+  }
+}
