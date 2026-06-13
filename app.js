@@ -693,37 +693,56 @@ function updateFavoriteButtonState(channelId) {
    AUTO PLAY & ROUTING
    ========================================== */
 function handleAutoPlay() {
-  let playIndex = 0;
+  let targetChannelId = "";
   
   // Check hash link
   const hash = window.location.hash;
   if (hash && hash.startsWith("#ch_")) {
-    const chId = hash.substring(1);
-    const index = channels.findIndex(ch => ch.id === chId);
+    targetChannelId = hash.substring(1);
+    const index = channels.findIndex(ch => ch.id === targetChannelId);
     if (index !== -1) {
-      playIndex = index;
-      // Also update category selection to match the channel's category
-      const targetChan = channels[playIndex];
+      const targetChan = channels[index];
       currentCategory = targetChan.category || "All";
       gridTitle.innerText = currentCategory.toLowerCase().trim() === "fifa26" ? "FIFA Streams" : `${currentCategory} Channels`;
       
       renderCategories();
       filterAndSearch();
+    } else {
+      targetChannelId = "";
     }
-  } else {
-    // If no hash, auto-select FIFA tab if channels are available in it
-    const hasFifa = channels.some(ch => ch.category === "FIFA26");
-    if (hasFifa) {
-      currentCategory = "FIFA26";
-      gridTitle.innerText = "FIFA Streams";
+  }
+  
+  if (!targetChannelId) {
+    // If no hash, auto-select IDMAN TV
+    const idmanChan = channels.find(ch => ch.id === "ch_119" || ch.name.toLowerCase().includes("idman"));
+    if (idmanChan) {
+      targetChannelId = idmanChan.id;
+      currentCategory = idmanChan.category || "All";
+      gridTitle.innerText = currentCategory.toLowerCase().trim() === "fifa26" ? "FIFA Streams" : `${currentCategory} Channels`;
+      
       renderCategories();
       filterAndSearch();
+    } else {
+      // Fallback to FIFA tab if channels are available in it
+      const hasFifa = channels.some(ch => ch.category === "FIFA26");
+      if (hasFifa) {
+        currentCategory = "FIFA26";
+        gridTitle.innerText = "FIFA Streams";
+        renderCategories();
+        filterAndSearch();
+      }
     }
   }
   
   // Play the channel
   if (filteredChannels.length > 0) {
-    // Play index 0 in the filtered channels
-    clickChannel(0);
+    let playIdx = 0;
+    if (targetChannelId) {
+      const foundIdx = filteredChannels.findIndex(ch => ch.id === targetChannelId);
+      if (foundIdx !== -1) {
+        playIdx = foundIdx;
+      }
+    }
+    clickChannel(playIdx);
   }
 }
