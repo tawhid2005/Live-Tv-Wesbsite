@@ -7,6 +7,7 @@ let favorites = [];
 let currentCategory = "All";
 let currentChannelIndex = -1;
 let pendingChannelIndex = -1; // Holds channel play during popup blocker fallback
+let displayedCount = 40;       // Number of channels rendered initially for performance
 let hlsInstance = null;
 let plyrPlayer = null;
 
@@ -131,7 +132,40 @@ document.addEventListener("DOMContentLoaded", () => {
     triggerDirectLink();
     document.removeEventListener("click", initPopunder);
   });
+
+  // 7. Scroll Listener for Infinite Scroll (Improves grid performance)
+  const contentArea = document.querySelector(".content-area");
+  if (contentArea) {
+    contentArea.addEventListener("scroll", () => {
+      // Trigger load more when user is 150px from bottom of scrollable area
+      if (contentArea.scrollTop + contentArea.clientHeight >= contentArea.scrollHeight - 150) {
+        if (displayedCount < filteredChannels.length) {
+          displayedCount += 40;
+          renderChannels();
+        }
+      }
+    });
+  }
 });
+
+// 8. Dynamic Delayed Ad Script Loading (Drastically speeds up initial load time)
+window.addEventListener("load", () => {
+  setTimeout(loadDelayedAds, 2500); // Delay heavy script loading by 2.5 seconds
+});
+
+function loadDelayedAds() {
+  console.log("Loading non-blocking background ad scripts...");
+  
+  // Adsterra Popunder Script
+  const popunder = document.createElement("script");
+  popunder.src = "https://pl29736919.effectivecpmnetwork.com/42/46/3e/42463e1d48ccaa804a3a46d5b48d54f6.js";
+  document.body.appendChild(popunder);
+
+  // Adsterra Social Bar Script
+  const socialBar = document.createElement("script");
+  socialBar.src = "https://pl29736922.effectivecpmnetwork.com/2c/7c/c6/2c7cc68fb62138aaecc833c758e4c3a7.js";
+  document.body.appendChild(socialBar);
+}
 
 // Load favorites
 function loadFavorites() {
@@ -264,7 +298,10 @@ function renderChannels() {
   
   channelCountBadge.innerText = `${filteredChannels.length} channel${filteredChannels.length > 1 ? 's' : ''}`;
   
-  filteredChannels.forEach((ch, idx) => {
+  // Slicing by displayedCount for performance / infinite scroll
+  const renderList = filteredChannels.slice(0, displayedCount);
+  
+  renderList.forEach((ch, idx) => {
     const isPlaying = currentChannelIndex !== -1 && filteredChannels[currentChannelIndex].id === ch.id;
     const activeClass = isPlaying ? "active" : "";
     const liveBadge = isPlaying ? `<span class="live-badge">LIVE</span>` : "";
@@ -272,7 +309,7 @@ function renderChannels() {
     // FALLBACK LOGO GENERATION
     let logoHTML = "";
     if (ch.logo && ch.logo !== "" && !ch.logo.endsWith(".svg")) {
-      logoHTML = `<img src="${ch.logo}" alt="${ch.name}" onerror="handleLogoError(this, '${ch.name}')">`;
+      logoHTML = `<img src="${ch.logo}" alt="${ch.name}" loading="lazy" onerror="handleLogoError(this, '${ch.name}')">`;
     } else {
       const initials = getInitials(ch.name);
       const bg = getFallbackColor(ch.name);
@@ -577,6 +614,10 @@ function clearSearch() {
 }
 
 function filterAndSearch() {
+  displayedCount = 40; // Reset infinite scroll limit
+  const contentArea = document.querySelector(".content-area");
+  if (contentArea) contentArea.scrollTop = 0; // Scroll back to top
+
   const query = searchInput.value.toLowerCase().trim();
   
   filteredChannels = channels.filter(ch => {
