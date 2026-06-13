@@ -532,6 +532,14 @@ body {
   display: none !important;
 }
 
+.ad-desktop-only {
+  display: flex !important;
+}
+
+.ad-mobile-only {
+  display: none !important;
+}
+
 .ad-top {
   width: 100%;
   max-width: 900px;
@@ -937,6 +945,18 @@ body {
     padding: 1px 4px;
   }
   
+  .ad-desktop-only {
+    display: none !important;
+  }
+  .ad-mobile-only {
+    display: flex !important;
+  }
+  .ad-top.ad-mobile-only {
+    min-height: 50px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+
   .content-area {
     overflow-y: visible;
   }

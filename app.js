@@ -10,11 +10,12 @@ let pendingChannelIndex = -1; // Holds channel play during popup blocker fallbac
 let hlsInstance = null;
 let plyrPlayer = null;
 
-// Monetag Direct Links
+// Monetag & Adsterra Direct Links / Smartlinks
 const directLinks = [
   "https://omg10.com/4/10867251",
   "https://omg10.com/4/10867541",
-  "https://omg10.com/4/10867542"
+  "https://omg10.com/4/10867542",
+  "https://www.effectivecpmnetwork.com/u9jcy3x37?key=663f13ecb5bfa7fd621dcc0a388d67e5"
 ];
 let lastAdTime = Date.now(); // Track last ad timestamp
 let channelChangeCount = 0;   // Count channel changes
