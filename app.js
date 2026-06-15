@@ -713,23 +713,34 @@ function handleAutoPlay() {
   }
   
   if (!targetChannelId) {
-    // If no hash, auto-select IDMAN TV
-    const idmanChan = channels.find(ch => ch.id === "ch_119" || ch.name.toLowerCase().includes("idman"));
-    if (idmanChan) {
-      targetChannelId = idmanChan.id;
-      currentCategory = idmanChan.category || "All";
+    // If no hash, auto-select CAZE TV
+    const cazeChan = channels.find(ch => ch.name.toLowerCase().includes("caze tv"));
+    if (cazeChan) {
+      targetChannelId = cazeChan.id;
+      currentCategory = cazeChan.category || "All";
       gridTitle.innerText = currentCategory.toLowerCase().trim() === "fifa26" ? "FIFA Streams" : `${currentCategory} Channels`;
       
       renderCategories();
       filterAndSearch();
     } else {
-      // Fallback to FIFA tab if channels are available in it
-      const hasFifa = channels.some(ch => ch.category === "FIFA26");
-      if (hasFifa) {
-        currentCategory = "FIFA26";
-        gridTitle.innerText = "FIFA Streams";
+      // If CAZE TV not found, fallback to IDMAN TV
+      const idmanChan = channels.find(ch => ch.id === "ch_119" || ch.name.toLowerCase().includes("idman"));
+      if (idmanChan) {
+        targetChannelId = idmanChan.id;
+        currentCategory = idmanChan.category || "All";
+        gridTitle.innerText = currentCategory.toLowerCase().trim() === "fifa26" ? "FIFA Streams" : `${currentCategory} Channels`;
+        
         renderCategories();
         filterAndSearch();
+      } else {
+        // Fallback to FIFA tab if channels are available in it
+        const hasFifa = channels.some(ch => ch.category === "FIFA26");
+        if (hasFifa) {
+          currentCategory = "FIFA26";
+          gridTitle.innerText = "FIFA Streams";
+          renderCategories();
+          filterAndSearch();
+        }
       }
     }
   }
