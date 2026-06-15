@@ -9,6 +9,7 @@ let currentChannelIndex = -1;
 let pendingChannelIndex = -1; // Holds channel play during popup blocker fallback
 let displayedCount = 40;       // Number of channels rendered initially for performance
 let hlsInstance = null;
+let mpegtsInstance = null;
 let plyrPlayer = null;
 
 // Monetag & Adsterra Direct Links / Smartlinks
@@ -84,7 +85,7 @@ function initPlayer() {
   // Track errors via video tag directly as backup
   videoElement.addEventListener('error', () => {
     // If native loading fails
-    if (!hlsInstance && videoElement.error) {
+    if (!hlsInstance && !mpegtsInstance && videoElement.error) {
       showPlayerError();
     }
   });
@@ -486,7 +487,37 @@ function loadStream(url) {
     hlsInstance = null;
   }
 
-  if (Hls.isSupported()) {
+  // Clean up existing mpegts instance
+  if (mpegtsInstance) {
+    mpegtsInstance.pause();
+    mpegtsInstance.unload();
+    mpegtsInstance.detachMediaElement();
+    mpegtsInstance.destroy();
+    mpegtsInstance = null;
+  }
+
+  // Check if it is a .ts video stream URL
+  const isMpegTs = url.split("?")[0].toLowerCase().endsWith(".ts") || url.toLowerCase().includes(".ts");
+
+  if (isMpegTs && typeof mpegts !== 'undefined' && mpegts.isSupported()) {
+    mpegtsInstance = mpegts.createPlayer({
+      type: 'mpegts',
+      url: url,
+      isLive: true,
+      cors: true,
+      withCredentials: false
+    });
+    
+    mpegtsInstance.attachMediaElement(videoElement);
+    mpegtsInstance.load();
+    mpegtsInstance.play().catch(e => console.log("MPEGTS play interrupted:", e));
+    
+    mpegtsInstance.on(mpegts.Events.ERROR, (type, detail, info) => {
+      console.error("MPEGTS error:", type, detail, info);
+      showPlayerError();
+    });
+  }
+  else if (Hls.isSupported()) {
     hlsInstance = new Hls({
       maxMaxBufferLength: 10,
       enableWorker: true,
