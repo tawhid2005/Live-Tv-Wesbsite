@@ -621,8 +621,7 @@ function loadStream(url) {
     console.error("HLS not supported on this browser.");
     showPlayerError();
   }
-
-
+} // ── End of loadStream() ──────────────────
 
 function showPlayerError() {
   playerLoader.classList.add("hidden");
