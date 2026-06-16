@@ -445,7 +445,7 @@
     "logo": "https://s3.aynaott.com/storage/dbc585f70a60b9855b6e13a8ce4cb6f4",
     "category": "Sports",
     "tvg_id": "",
-    "url": "https://amitomar.bdixbd.net/hoichoi.pro1/tracks-v1/index.m3u8"
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=tsports&e=.m3u8"
   },
   {
     "id": "ch_57",
@@ -3086,5 +3086,397 @@
     "category": "FIFA26",
     "tvg_id": "",
     "url": "https://1nyaler.streamhostingcdn.top/stream/32/index.m3u8"
+  },
+  {
+    "id": "ch_387",
+    "name": "Ekushey TV",
+    "logo": "https://s4.gifyu.com/images/image534fa27d7683f33d.png",
+    "category": "Bangla",
+    "tvg_id": "",
+    "url": "http://210.4.72.204/hls-live/livepkgr/_definst_/liveevent/livestream3.m3u8"
+  },
+  {
+    "id": "ch_388",
+    "name": "Deepto TV (Alt)",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/3/31/Deepto_TV_logo.png",
+    "category": "Bangla",
+    "tvg_id": "",
+    "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/0_1/index.m3u8"
+  },
+  {
+    "id": "ch_389",
+    "name": "BBC News",
+    "logo": "https://seeklogo.com/images/B/bbc-news-logo-8648ABD044-seeklogo.com.png",
+    "category": "News",
+    "tvg_id": "",
+    "url": "https://cdn4.skygo.mn/live/disk1/BBC_News/HLSv3-FTA/BBC_News-avc1_3000000=8-mp4a_208000_eng=2.m3u8"
+  },
+  {
+    "id": "ch_390",
+    "name": "Music Bangla",
+    "logo": "https://static.wikia.nocookie.net/logopedia/images/7/75/Music_Bangla_new.jpeg",
+    "category": "Musics",
+    "tvg_id": "",
+    "url": "http://live.matribhumitv.com/music-bangla/index.m3u8"
+  },
+  {
+    "id": "ch_391",
+    "name": "Cineedge HD",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770347851305.png",
+    "category": "Movies",
+    "tvg_id": "197000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/cineedge/playlist.m3u8"
+  },
+  {
+    "id": "ch_392",
+    "name": "Uniques HD",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770347327658.png",
+    "category": "Movies",
+    "tvg_id": "196000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/uniques/playlist.m3u8"
+  },
+  {
+    "id": "ch_393",
+    "name": "Superrix HD",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770348388925.png",
+    "category": "Movies",
+    "tvg_id": "198000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/superrix/playlist.m3u8"
+  },
+  {
+    "id": "ch_394",
+    "name": "Screem",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770312098339.png",
+    "category": "Movies",
+    "tvg_id": "192000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/screem/playlist.m3u8"
+  },
+  {
+    "id": "ch_395",
+    "name": "Crimes",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770380126540.png",
+    "category": "Movies",
+    "tvg_id": "214000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/crimes/playlist.m3u8"
+  },
+  {
+    "id": "ch_396",
+    "name": "True Stories",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770380306806.png",
+    "category": "Movies",
+    "tvg_id": "215000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/truestories/playlist.m3u8"
+  },
+  {
+    "id": "ch_397",
+    "name": "Intelligence",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770380460488.png",
+    "category": "Movies",
+    "tvg_id": "216000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/intelligence/playlist.m3u8"
+  },
+  {
+    "id": "ch_398",
+    "name": "Originals",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1778085327477.png",
+    "category": "Movies",
+    "tvg_id": "243000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/originals/playlist.m3u8"
+  },
+  {
+    "id": "ch_399",
+    "name": "BuddyStar HD",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770379038530.png",
+    "category": "Kids",
+    "tvg_id": "212000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/buddystar/playlist.m3u8"
+  },
+  {
+    "id": "ch_400",
+    "name": "Luxel HD",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770378560772.png",
+    "category": "Infotainment",
+    "tvg_id": "209000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/luxell/playlist.m3u8"
+  },
+  {
+    "id": "ch_401",
+    "name": "Joy",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770378874717.png",
+    "category": "Kids",
+    "tvg_id": "211000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/joy/playlist.m3u8"
+  },
+  {
+    "id": "ch_402",
+    "name": "Funny Junior HD",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770379573329.png",
+    "category": "Kids",
+    "tvg_id": "213000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/funnyjunior/playlist.m3u8"
+  },
+  {
+    "id": "ch_403",
+    "name": "Smarty",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770381107924.png",
+    "category": "Kids",
+    "tvg_id": "220000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/smarty/playlist.m3u8"
+  },
+  {
+    "id": "ch_404",
+    "name": "Lucky Family",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770381248531.png",
+    "category": "Kids",
+    "tvg_id": "221000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/luckyfamily/playlist.m3u8"
+  },
+  {
+    "id": "ch_405",
+    "name": "Kids Stars",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770381398090.png",
+    "category": "Kids",
+    "tvg_id": "222000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/kidsstars/playlist.m3u8"
+  },
+  {
+    "id": "ch_406",
+    "name": "Nikki",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1778083459294.png",
+    "category": "Kids",
+    "tvg_id": "242000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/nikky/playlist.m3u8"
+  },
+  {
+    "id": "ch_407",
+    "name": "Cartoon Network HD",
+    "logo": "https://images.toffeelive.com/images/program/26942/logo/240x240/mobile_logo_443429001678950505.png",
+    "category": "Kids",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=cartoon_network_hd&e=.m3u8"
+  },
+  {
+    "id": "ch_408",
+    "name": "Cartoon Network",
+    "logo": "https://images.toffeelive.com/images/program/27232/logo/240x240/mobile_logo_320294001679201065.png",
+    "category": "Kids",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=cartoon_network_sd&e=.m3u8"
+  },
+  {
+    "id": "ch_409",
+    "name": "Pogo",
+    "logo": "https://images.toffeelive.com/images/program/27159/logo/240x240/mobile_logo_740957001679201029.png",
+    "category": "Kids",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=pogo_sd&e=.m3u8"
+  },
+  {
+    "id": "ch_410",
+    "name": "Discovery Kids",
+    "logo": "https://images.toffeelive.com/images/program/611/logo/240x240/mobile_logo_430542001673177743.png",
+    "category": "Kids",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=discovery_kids&e=.m3u8"
+  },
+  {
+    "id": "ch_411",
+    "name": "Sony Yay",
+    "logo": "https://images.toffeelive.com/images/program/612/logo/240x240/mobile_logo_091186001666784752.png",
+    "category": "Kids",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=sonyyay&e=.m3u8"
+  },
+  {
+    "id": "ch_412",
+    "name": "Party Universe",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1778083145889.png",
+    "category": "Musics",
+    "tvg_id": "241000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/partyuniverse/playlist.m3u8"
+  },
+  {
+    "id": "ch_413",
+    "name": "Al Quran",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1778086065071.png",
+    "category": "Religious",
+    "tvg_id": "245000",
+    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1713/output/index.m3u8"
+  },
+  {
+    "id": "ch_414",
+    "name": "Delicious",
+    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1778086478755.png",
+    "category": "Infotainment",
+    "tvg_id": "246000",
+    "url": "https://nomawnoijl.gpcdn.net/akash/delicious/playlist.m3u8"
+  },
+  {
+    "id": "ch_415",
+    "name": "Sony Aath",
+    "logo": "https://images.toffeelive.com/images/program/343/logo/240x240/mobile_logo_496322001666780228.png",
+    "category": "Indian Bangla",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=sonyaath&e=.m3u8"
+  },
+  {
+    "id": "ch_416",
+    "name": "Discovery Channel",
+    "logo": "https://images.toffeelive.com/images/program/18097/logo/240x240/mobile_logo_297723001673195119.png",
+    "category": "English",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=discovery_sd&e=.m3u8"
+  },
+  {
+    "id": "ch_417",
+    "name": "Euro Sport HD",
+    "logo": "https://images.toffeelive.com/images/program/4388/logo/240x240/mobile_logo_422191001674119624.png",
+    "category": "Sports",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=euro_sports_hd&e=.m3u8"
+  },
+  {
+    "id": "ch_418",
+    "name": "Sony Sports Ten 1 HD",
+    "logo": "https://images.toffeelive.com/images/program/603/logo/240x240/mobile_logo_237244001666780563.png",
+    "category": "Sports",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=sony_sports_1_hd&e=.m3u8"
+  },
+  {
+    "id": "ch_419",
+    "name": "Sony Sports Ten 2 HD",
+    "logo": "https://images.toffeelive.com/images/program/604/logo/240x240/mobile_logo_093449001666780976.png",
+    "category": "Sports",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=sony_sports_2_hd&e=.m3u8"
+  },
+  {
+    "id": "ch_420",
+    "name": "Sony Sports Ten 5 HD",
+    "logo": "https://images.toffeelive.com/images/program/606/logo/240x240/mobile_logo_689539001672145843.png",
+    "category": "Sports",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=sony_sports_5_hd&e=.m3u8"
+  },
+  {
+    "id": "ch_421",
+    "name": "Sony Ten Cricket",
+    "logo": "https://images.toffeelive.com/images/program/301891/logo/240x240/mobile_logo_578686001735197654.png",
+    "category": "Sports",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=ten_cricket&e=.m3u8"
+  },
+  {
+    "id": "ch_422",
+    "name": "Hum TV",
+    "logo": "https://images.toffeelive.com/images/program/303937/logo/240x240/mobile_logo_880134001738072763.png",
+    "category": "Hindi",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=hum_tv&e=.m3u8"
+  },
+  {
+    "id": "ch_423",
+    "name": "Hum Masala",
+    "logo": "https://images.toffeelive.com/images/program/303947/logo/240x240/mobile_logo_203789001738235600.png",
+    "category": "Hindi",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=hum_masala&e=.m3u8"
+  },
+  {
+    "id": "ch_424",
+    "name": "Hum Sitarey",
+    "logo": "https://images.toffeelive.com/images/program/303948/logo/240x240/mobile_logo_350939001738236112.png",
+    "category": "Hindi",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=hum_sitaray&e=.m3u8"
+  },
+  {
+    "id": "ch_425",
+    "name": "Sony Entertainment HD",
+    "logo": "https://images.toffeelive.com/images/program/602/logo/240x240/mobile_logo_495351001666780441.png",
+    "category": "Hindi",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=sonyentertainmnt_hd&e=.m3u8"
+  },
+  {
+    "id": "ch_426",
+    "name": "Sony Entertainment",
+    "logo": "https://images.toffeelive.com/images/program/57/logo/240x240/mobile_logo_149299001666780350.png",
+    "category": "Hindi",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=sony_entertainment&e=.m3u8"
+  },
+  {
+    "id": "ch_427",
+    "name": "Sony SAB HD",
+    "logo": "https://images.toffeelive.com/images/program/2420/logo/240x240/mobile_logo_688156001666785674.png",
+    "category": "Hindi",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=sonysab_hd&e=.m3u8"
+  },
+  {
+    "id": "ch_428",
+    "name": "Sony Max HD",
+    "logo": "https://images.toffeelive.com/images/program/641/logo/240x240/mobile_logo_440775001666782769.png",
+    "category": "Hindi",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=sony_max_hd&e=.m3u8"
+  },
+  {
+    "id": "ch_429",
+    "name": "Sony Max",
+    "logo": "https://images.toffeelive.com/images/program/352/logo/240x240/mobile_logo_612341001666782969.png",
+    "category": "Hindi",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=sony_max&e=.m3u8"
+  },
+  {
+    "id": "ch_430",
+    "name": "Sony Pix HD",
+    "logo": "https://images.toffeelive.com/images/program/2419/logo/240x240/mobile_logo_287412001666784602.png",
+    "category": "Hindi",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=sonypix_hd&e=.m3u8"
+  },
+  {
+    "id": "ch_431",
+    "name": "Sony Max 2",
+    "logo": "https://images.toffeelive.com/images/program/353/logo/240x240/mobile_logo_044841001666779831.png",
+    "category": "Hindi",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=sonymax_2&e=.m3u8"
+  },
+  {
+    "id": "ch_432",
+    "name": "B4U Movies",
+    "logo": "https://images.toffeelive.com/images/program/366/logo/240x240/mobile_logo_702115001663003759.png",
+    "category": "Hindi",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=b4u_movies&e=.m3u8"
+  },
+  {
+    "id": "ch_433",
+    "name": "Zee Bangla (Alt)",
+    "logo": "https://images.toffeelive.com/images/program/340/logo/240x240/mobile_logo_094417001655891123.png",
+    "category": "Indian Bangla",
+    "tvg_id": "",
+    "url": "https://mflixott.com/tv/toffee-by-maruf/live.php?id=zee_bangla&e=.m3u8"
+  },
+  {
+    "id": "ch_434",
+    "name": "Zee Bangla Sonar",
+    "logo": "https://i.postimg.cc/HnkzXwDf/channels4-profile.jpg",
+    "category": "Indian Bangla",
+    "tvg_id": "",
+    "url": "https://stream.ottplus.live/live/zee_bangla_cinema_abr/live/zee_bangla_cinema_720/playlist.m3u8"
+  },
+  {
+    "id": "ch_435",
+    "name": "Somoy TV (Maruf)",
+    "logo": "https://i.postimg.cc/NF9gp1p5/samaya-ta-bha-ra-la-ga-svg.png",
+    "category": "News",
+    "tvg_id": "",
+    "url": "https://live.thebosstv.com:30443/dwlive/Somoy-TV/playlist.m3u8"
   }
 ]
