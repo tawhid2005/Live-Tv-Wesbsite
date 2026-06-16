@@ -9,6 +9,8 @@
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://www.highperformanceformat.com">
+  <link rel="dns-prefetch" href="https://pl29736920.effectivecpmnetwork.com">
   <!-- Preload critical resources -->
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/hls.js@1.5.15/dist/hls.min.js" as="script">
   <link rel="preload" href="style.css?v=3" as="style">
@@ -46,7 +48,7 @@
       </div>
     </header>
 
-    <!-- Top Banner Ad Container (Desktop 728x90) -->
+    <!-- ✅ Top Banner Ad — Desktop 728x90 -->
     <div class="ad-container ad-top ad-desktop-only" id="topAdContainerDesktop">
       <script type="text/javascript">
         atOptions = {
@@ -57,10 +59,10 @@
           'params' : {}
         };
       </script>
-      <script type="text/javascript" async src="https://www.highperformanceformat.com/bb35470de6b043368996d6d40e6a362f/invoke.js"></script>
+      <script type="text/javascript" src="https://www.highperformanceformat.com/bb35470de6b043368996d6d40e6a362f/invoke.js"></script>
     </div>
 
-    <!-- Top Banner Ad Container (Mobile 320x50) -->
+    <!-- ✅ Top Banner Ad — Mobile 320x50 -->
     <div class="ad-container ad-top ad-mobile-only" id="topAdContainerMobile">
       <script type="text/javascript">
         atOptions = {
@@ -71,7 +73,7 @@
           'params' : {}
         };
       </script>
-      <script type="text/javascript" async src="https://www.highperformanceformat.com/0eb0a4c7c0880c284f6f75819135a509/invoke.js"></script>
+      <script type="text/javascript" src="https://www.highperformanceformat.com/0eb0a4c7c0880c284f6f75819135a509/invoke.js"></script>
     </div>
 
     <div class="main-layout">
@@ -81,7 +83,8 @@
         <div class="category-list" id="categoryList">
           <!-- Dynamically populated categories -->
         </div>
-        <!-- Sidebar Ad Container (300x250) -->
+
+        <!-- ✅ Sidebar Ad — 300x250 -->
         <div class="ad-container ad-sidebar" id="sidebarAdContainer">
           <script type="text/javascript">
             atOptions = {
@@ -92,7 +95,35 @@
               'params' : {}
             };
           </script>
-          <script type="text/javascript" async src="https://www.highperformanceformat.com/1cab77e98287e4c8ee757e4d8c6f57a4/invoke.js"></script>
+          <script type="text/javascript" src="https://www.highperformanceformat.com/1cab77e98287e4c8ee757e4d8c6f57a4/invoke.js"></script>
+        </div>
+
+        <!-- ✅ Sidebar Ad — 160x600 (Wide Skyscraper) -->
+        <div class="ad-container ad-sidebar-tall ad-desktop-only" id="sidebarTallAdContainer">
+          <script type="text/javascript">
+            atOptions = {
+              'key' : '71d75362f9bccebcbd277251fbd446d3',
+              'format' : 'iframe',
+              'height' : 600,
+              'width' : 160,
+              'params' : {}
+            };
+          </script>
+          <script type="text/javascript" src="https://www.highperformanceformat.com/71d75362f9bccebcbd277251fbd446d3/invoke.js"></script>
+        </div>
+
+        <!-- ✅ Sidebar Ad — 160x300 (Half Page) -->
+        <div class="ad-container ad-sidebar-half ad-desktop-only" id="sidebarHalfAdContainer">
+          <script type="text/javascript">
+            atOptions = {
+              'key' : 'ef49e66993b669ea831a8acc6d17fb46',
+              'format' : 'iframe',
+              'height' : 300,
+              'width' : 160,
+              'params' : {}
+            };
+          </script>
+          <script type="text/javascript" src="https://www.highperformanceformat.com/ef49e66993b669ea831a8acc6d17fb46/invoke.js"></script>
         </div>
       </aside>
 
@@ -150,8 +181,21 @@
               <p id="currentChannelCategory" class="channel-category-badge">General</p>
             </div>
           </div>
-        </section>
 
+          <!-- ✅ Banner 468x60 — Below Player Info Bar -->
+          <div class="ad-container ad-below-player ad-desktop-only" id="belowPlayerAdContainer">
+            <script type="text/javascript">
+              atOptions = {
+                'key' : '3653bbcab72aab4364fa4ba5fb7920fb',
+                'format' : 'iframe',
+                'height' : 60,
+                'width' : 468,
+                'params' : {}
+              };
+            </script>
+            <script type="text/javascript" src="https://www.highperformanceformat.com/3653bbcab72aab4364fa4ba5fb7920fb/invoke.js"></script>
+          </div>
+        </section>
 
         <!-- Grid Section -->
         <section class="grid-section">
@@ -165,7 +209,7 @@
           </div>
         </section>
 
-        <!-- Player Bottom Ad Container (Native Banner) (Moved below grid section) -->
+        <!-- ✅ Native Banner Ad (Adsterra) — Below Channel Grid -->
         <div class="ad-container ad-player-bottom" id="playerAdContainer">
           <script async="async" data-cfasync="false" src="https://pl29736920.effectivecpmnetwork.com/24f89261ffb3e177d8d591a36acd1829/invoke.js"></script>
           <div id="container-24f89261ffb3e177d8d591a36acd1829" style="width: 100%;"></div>
@@ -223,26 +267,14 @@
 
   <!-- Hls.js Library -->
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.15/dist/hls.min.js"></script>
-  <!-- App JS (NO defer - needed for popunder to register on first click) -->
-  <script src="app.js?v=5"></script>
+  <!-- App JS -->
+  <script src="app.js?v=6"></script>
 
-  <!-- Adsterra Popunder (loads after page) -->
-  <script>
-    window.addEventListener('load', function() {
-      setTimeout(function() {
-        // Adsterra Popunder
-        var s1 = document.createElement('script');
-        s1.async = true;
-        s1.src = 'https://pl29736919.effectivecpmnetwork.com/42/46/3e/42463e1d48ccaa804a3a46d5b48d54f6.js';
-        document.body.appendChild(s1);
-        // Adsterra Social Bar
-        var s2 = document.createElement('script');
-        s2.async = true;
-        s2.src = 'https://pl29736922.effectivecpmnetwork.com/2c/7c/c6/2c7cc68fb62138aaecc833c758e4c3a7.js';
-        document.body.appendChild(s2);
-      }, 2000);
-    });
-  </script>
+  <!-- ✅ Adsterra Popunder — 1 per page, before </body> -->
+  <script src="https://pl29736919.effectivecpmnetwork.com/42/46/3e/42463e1d48ccaa804a3a46d5b48d54f6.js"></script>
+
+  <!-- ✅ Adsterra Social Bar — right above </body> -->
+  <script src="https://pl29736922.effectivecpmnetwork.com/2c/7c/c6/2c7cc68fb62138aaecc833c758e4c3a7.js"></script>
 
 </body>
 </html>

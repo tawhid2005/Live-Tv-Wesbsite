@@ -673,6 +673,25 @@ body {
   min-height: 250px;
 }
 
+.ad-sidebar-tall {
+  width: 160px;
+  min-height: 600px;
+  margin: 16px auto;
+}
+
+.ad-sidebar-half {
+  width: 160px;
+  min-height: 300px;
+  margin: 16px auto;
+}
+
+.ad-below-player {
+  width: 100%;
+  max-width: 468px;
+  min-height: 60px;
+  margin-top: 16px;
+}
+
 .alt-server-btn {
   display: flex;
   align-items: center;
