@@ -802,20 +802,29 @@ function handleAutoPlay() {
   }
   
   if (!targetChannelId) {
-    // Default: Auto-select FIFA26 category and play the first FIFA channel
-    const firstFifaChan = channels.find(ch => ch.category === "FIFA26" || ch.category === "fifa26");
-    if (firstFifaChan) {
-      targetChannelId = firstFifaChan.id;
+    // Default: Auto-play "FIFA1" channel on website open
+    const fifa1Chan = channels.find(ch => ch.name === "FIFA1" || ch.id === "ch_309");
+    if (fifa1Chan) {
+      targetChannelId = fifa1Chan.id;
       currentCategory = "FIFA26";
       gridTitle.innerText = "FIFA Streams";
       renderCategories();
       filterAndSearch();
     } else {
-      // Fallback: play the very first channel in All category
-      currentCategory = "All";
-      gridTitle.innerText = "All Channels";
-      renderCategories();
-      filterAndSearch();
+      // Fallback: first FIFA26 channel
+      const firstFifaChan = channels.find(ch => ch.category === "FIFA26" || ch.category === "fifa26");
+      if (firstFifaChan) {
+        targetChannelId = firstFifaChan.id;
+        currentCategory = "FIFA26";
+        gridTitle.innerText = "FIFA Streams";
+        renderCategories();
+        filterAndSearch();
+      } else {
+        currentCategory = "All";
+        gridTitle.innerText = "All Channels";
+        renderCategories();
+        filterAndSearch();
+      }
     }
   }
   
